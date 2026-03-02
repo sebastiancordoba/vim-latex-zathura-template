@@ -40,15 +40,12 @@ require("lazy").setup({
       -- Vimtex configuration
       vim.g.vimtex_view_method = "zathura"
       vim.g.vimtex_compiler_latexmk = {
+        out_dir = 'build',
         options = {
           "-pdf",
           "-interaction=nonstopmode",
           "-synctex=1",
         },
-      }
-      -- Let vimtex know that we want a custom build dir
-      vim.g.vimtex_compiler_latexmk = {
-          out_dir = 'build'
       }
 
       -- Clean up the build directory on exit
