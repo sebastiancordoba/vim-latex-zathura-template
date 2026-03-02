@@ -1,0 +1,19 @@
+set synctex true
+set synctex-editor-command "nvr --remote-silent %f -c %m"
+
+# UI Settings
+set guioptions ""
+set selection-clipboard clipboard
+
+# Recoloring (Dark mode)
+set recolor true
+set recolor-keephue true
+set recolor-darkcolor "#e0e0e0"
+set recolor-lightcolor "#282a36"
+
+# Window settings
+set adjust-open "width"
+map j scroll down
+map k scroll up
+map J navigate next
+map K navigate previous
