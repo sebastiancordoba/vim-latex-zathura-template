@@ -27,6 +27,13 @@ vim.keymap.set('v', 'jk', '<ESC>', { noremap = true })
 
 require("lazy").setup({
   {
+      "ellisonleao/gruvbox.nvim", 
+      priority = 1000, 
+      config = function()
+          vim.cmd("colorscheme gruvbox")
+      end
+  },
+  {
     "lervag/vimtex",
     lazy = false, -- vimtex should not be lazy-loaded
     init = function()
@@ -35,7 +42,6 @@ require("lazy").setup({
       vim.g.vimtex_compiler_latexmk = {
         options = {
           "-pdf",
-          "-pdflatex=" .. vim.env.HOME .. "/.config/nvim/bin/pdflatex-with-synctex", -- if you need custom wrapper, otherwise just:
           "-interaction=nonstopmode",
           "-synctex=1",
         },
@@ -53,6 +59,17 @@ require("lazy").setup({
         vim.keymap.set("n", "<leader>ll", "<plug>(vimtex-compile)", { desc = "Compile LaTeX Document" })
         vim.keymap.set("n", "<leader>lv", "<plug>(vimtex-view)", { desc = "View PDF in Zathura" })
         vim.keymap.set("n", "<leader>lc", "<plug>(vimtex-clean)", { desc = "Clean build files" })
+        
+        -- Auto-save on text change to trigger Vimtex continuous compilation automatically
+        vim.api.nvim_create_autocmd({"TextChanged", "TextChangedI"}, {
+            pattern = "*.tex",
+            callback = function()
+                -- Save only if the buffer is modified to avoid loops
+                if vim.bo.modified then
+                    vim.cmd("silent! write")
+                end
+            end,
+        })
     end
   },
 
